@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tchat - who are you?</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style">
+        <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    </head>
+    <body id="register">
+        <form action="" class="row">
+
+            <!-- Left column, where the user selects a name -->
+            <div class="col-md-6 col-sm-12 pane" id="left">
+                <h2>who?</h2>
+                <input type="text" autofill="off" id="name" maxlength="20" />
+            </div>
+
+            <!-- Right column, where the user selects a room -->
+            <div class="col-md-6 col-sm-12 pane" id="right">
+                <h2>where?</h2>
+                <label for="room">#</label><input type="text" id="room" class="focus" maxlength="20" />
+                <button id="cont">Beam me up!</button>
+            </div>
+
+        </form>
+
+        <!-- Footer, currently just shows the name of the project -->
+        <div class="row" id="footer">
+            <div class="col-xs-12">
+                <h2 style="color: #000;">INDSTIL</h2>
+            </div>
+        </div>
+        <script src="jquery"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            $(function(){
+                var socket = io();
+
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    // Let's disable fancy effects on mobile, they just end up being annoying
+                } else {
+                    $('#name').focus(function(){
+                        $('#left').css('width', '60%');
+                        $('#right').css('width', '40%');
+                    });
+                    $('#room').focus(function(){
+                        $('#left').css('width', '40%');
+                        $('#right').css('width', '60%');
+                    });
+                    $('#name').focusout(function(){
+                        $('#left').css('width', '50%');
+                        $('#right').css('width', '50%');
+                    });
+                    $('#room').focusout(function(){
+                        $('#left').css('width', '50%');
+                        $('#right').css('width', '50%');
+                    });
+                }
+
+                // When the user submits name and room
+                $('form').submit(function(){
+
+                    // to avoid confusions, we only accept lowercase names and room names
+                    var name = $('#name').val().toLowerCase();
+                    var room = $('#room').val().toLowerCase();
+
+                    // of course, room or name can't be blank
+                    if (name == "" || room == "") {
+                        alert('Fill out blank fields.');
+                        return false;
+                    };
+
+                    // Just an extra security measure to avoid too long names or room names
+                    // We really should check on the server side too!!!
+                    if (name.length > 20 || room.length > 20) {
+                        alert('Quit tampering with my HTML!');
+                        $('#name').val("");
+                        $('#room').val("");
+                        return false;
+                    };
+                    // Another security measure, we don't want spaces in room names
+                    // This should be checked on the server too (asap)
+                    if (room.indexOf(' ') >= 0) {
+                        alert('Room cannot contain spaces.')
+                        return false;
+                    };
+
+                    // Submitted name and room name organized neatly
+                    var data = {
+                        name : name,
+                        room : room
+                    }
+
+                    // Tell the server that a new user has joined, and give it the users name and desired room
+                    socket.emit('new user', data);
+
+                    // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
+                    $.cookie('room', room);
+                    $.cookie('username', name);
+
+                    // Redirect the user to the actual chat
+                    window.location.href = "/";
+
+                    return false;
+                });
+
+                // Redirect the user to the chat if they already have a cookie registered
+                if($.cookie('username') != null) {
+                    window.location.replace('/');
+                };
+            });
+        </script>
+    </body>
+</html>
