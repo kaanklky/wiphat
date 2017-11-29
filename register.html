@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>tchat - who are you?</title>
+        <title>Wiphat</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
@@ -27,11 +27,12 @@
         <!-- Footer, currently just shows the name of the project -->
         <div class="row" id="footer">
             <div class="col-xs-12">
-                <h2 style="color: #000;">INDSTIL</h2>
+                <h2 style="color: #000;">whipat</h2>
             </div>
         </div>
         <script src="./js/jquery.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
             $(function(){
@@ -100,7 +101,7 @@
                     $.cookie('username', name);
 
                     // Redirect the user to the actual chat
-                    window.location.href = "/";
+                    window.location.href = "/chat";
 
                     return false;
                 });

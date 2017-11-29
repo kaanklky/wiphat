@@ -11,6 +11,11 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/register.html');
 });
 
+// Chat
+app.get('/chat', function(req, res){
+  res.sendFile(__dirname + '/chat.html');
+});
+
 io.on('connection', function(socket){
 
     // When a client sends a message
