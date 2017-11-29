@@ -42,7 +42,7 @@ label { font-size:4em; color:#fff; font-family: am3, sans-serif; position: relat
 #register { overflow-x: hidden; }
 @font-face {
     font-family: am3;
-    src: url(/am.otf);
+    src: url('../font/am.otf');
 }
 .pane {
     text-align:center;
@@ -62,12 +62,12 @@ label { font-size:4em; color:#fff; font-family: am3, sans-serif; position: relat
     }
 }
 #left {
-    background: url('./img/waterdark.jpg') no-repeat center center fixed;
+    background: url('../img/waterdark.jpg') no-repeat center center fixed;
     background-size:cover;
     transition: ease all 400ms;
 }
 #right {
-    background: url('./img/nebuladark.jpg') no-repeat center center fixed;
+    background: url('../img/nebuladark.jpg') no-repeat center center fixed;
     background-size:cover;
     transition: ease all 400ms;
 }

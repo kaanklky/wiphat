@@ -1,47 +1,14 @@
 var express = require('express');
 var app = express();
+var path = require('path')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Index
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
-});
-
-// Registration
-app.get('/register', function(req, res){
     res.sendFile(__dirname + '/register.html');
-});
-
-// Stylesheet
-app.get('/style', function(req, res){
-    res.sendFile(__dirname + '/style.css');
-});
-
-// IMGs
-app.get('/img/nebuladark.jpg', function(req, res){
-    res.sendFile(__dirname + '/img/nebuladark.jpg');
-});
-app.get('/img/waterdark.jpg', function(req, res){
-    res.sendFile(__dirname + '/img/waterdark.jpg');
-});
-
-// A nice little cookie handling script
-app.get('js/cookie.js', function(req, res){
-    res.sendFile(__dirname + '/js/cookies.js');
-});
-
-// The font we're using, Arca Majora
-app.get('/am.otf', function(req, res){
-    res.sendFile(__dirname + '/am.otf');
-});
-
-// The fancy little "ping sound"
-app.get('/tagged.mp3', function(req, res){
-    res.sendFile(__dirname + '/served.mp3');
-});
-app.get('/jquery', function(req, res){
-    res.sendFile(__dirname + '/js/jquery.js');
 });
 
 io.on('connection', function(socket){
