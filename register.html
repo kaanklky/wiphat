@@ -80,7 +80,7 @@
       $('#joinButton').on('click', function () {
         if (/^[a-z0-9]{10}/.test($('#joinInput').val())) {
           var name = userName;
-          var room = $('#room').val();
+          var room = $('#joinInput').val();
 
           // Submitted name and room name organized neatly
           var data = {
@@ -99,15 +99,13 @@
           window.location.href = "/chat/" + room;
 
           return false;
-        } else {
-          alert("hey")
         }
       });
 
       $('form').submit(function () {
         if (/^[a-z0-9]{10}/.test($('#joinInput').val())) {
           var name = userName;
-          var room = $('#room').val();
+          var room = $('#joinInput').val();
 
           // Submitted name and room name organized neatly
           var data = {
