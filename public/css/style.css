@@ -108,6 +108,9 @@ label {
   #join > div > label {
     padding-left: 9px;
   }
+  .pane {
+    padding-top: 40%;
+  }
 }
 #welcome {
   background: url("../img/welcome.jpg") no-repeat center center fixed;
