@@ -34,7 +34,7 @@
     var connected = false;
 
     $(function () {
-      if ($.cookie('room') == null && /^(\w{11})$/.test(window.location.href.split('/').pop())) {
+      if ($.cookie('room') == null && /^[a-z0-9]{10}/.test(window.location.href.split('/').pop())) {
         $.cookie('room', window.location.href.split('/').pop());
       }
 
@@ -88,6 +88,12 @@
         // We want to make the scrolling smooth though
         $('html, body').animate({ scrollTop: $(document).height() }, 1000);
         // new Audio('./sound/ping.mp3').play();
+      });
+
+      // When a joined to room. (This must be seperate from `chat message` function)
+      socket.on('new user', function (data) {
+        $('#messages').append($('<li class="msg">').text('[server] ' + data.name + ' joined'));
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
       });
 
       // When the client wants to sign out

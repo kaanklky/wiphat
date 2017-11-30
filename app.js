@@ -35,15 +35,15 @@ io.on('connection', function(socket){
         var name = data.name;
         var room = data.room;
         socket.join(room);
+
         data2 = {
-            name : "server",
+            name : name,
             room : room,
-            message : '"' + name + '"' + ' joined the room.'
         };
 
         // Tell everyone in the room that the new client joined
-        io.in(room).emit('chat message', data2);
-        console.log(name + ' joined to ' + room);
+        io.in(room).emit('new user', data2);
+        console.log('[' + data2.room + '] ' + data2.name + ' joined');
     });
 
     // When a client wants to connect to a room
