@@ -90,12 +90,6 @@
         // new Audio('./sound/ping.mp3').play();
       });
 
-      // When a joined to room. (This must be seperate from `chat message` function)
-      socket.on('new user', function (data) {
-        $('#messages').append($('<li class="msg">').text('[server] ' + data.name + ' joined'));
-        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-      });
-
       // When the client wants to sign out
       $('#signout').on('click', function () {
 

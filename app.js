@@ -35,15 +35,15 @@ io.on('connection', function(socket){
         var name = data.name;
         var room = data.room;
         socket.join(room);
-
         data2 = {
-            name : name,
+            name : "server",
             room : room,
+            message : '"' + name + '"' + ' joined the room.'
         };
 
         // Tell everyone in the room that the new client joined
-        io.in(room).emit('new user', data2);
-        console.log('[' + data2.room + '] ' + data2.name + ' joined');
+        io.in(room).emit('chat message', data2);
+        console.log('[' + room + '] ' + data.name + ' joined');
     });
 
     // When a client wants to connect to a room
@@ -53,5 +53,5 @@ io.on('connection', function(socket){
 });
 
 http.listen(3000, function(){
-    console.log('listening on *:3000');
+    console.log('wiphat started on 3000');
 });
