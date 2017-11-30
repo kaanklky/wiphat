@@ -25,9 +25,9 @@ io.on('connection', function(socket){
 
     // When a client sends a message
     socket.on('chat message', function(data){
-
         // Broadcast it to everyone in the same room as the client
         io.in(data.room).emit('chat message', data);
+        console.log('[' + data.room + '] ' + data.name + ': ' + data.message);
     });
 
     // When a new user joins, we add them to their desired room
@@ -37,12 +37,13 @@ io.on('connection', function(socket){
         socket.join(room);
         data2 = {
             name : "server",
-            room : data.room,
+            room : room,
             message : '"' + name + '"' + ' joined the room.'
         };
 
         // Tell everyone in the room that the new client joined
-        io.in(data.room).emit('chat message', data2);
+        io.in(room).emit('chat message', data2);
+        console.log(name + ' joined to ' + room);
     });
 
     // When a client wants to connect to a room
