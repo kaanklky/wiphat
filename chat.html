@@ -2,110 +2,111 @@
 <html>
 
 <head>
-    <title id="title">Wiphat - </title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title id="title">Wiphat - </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body id="index">
-    <!-- The header -->
-    <div class="inf">
-        <!-- This is where we display the room name, it defaults to "Loading..." -->
-        <p id="roomid">Loading...</p>
-        <!-- And this is how the user signs out -->
-        <button id="signout">Exit</button>
-    </div>
+  <!-- The header -->
+  <div class="inf">
+    <!-- This is where we display the room name, it defaults to "Loading..." -->
+    <p id="roomid">Loading...</p>
+    <!-- And this is how the user signs out -->
+    <button id="signout">Exit</button>
+  </div>
 
-    <!-- We append messages here -->
-    <ul id="messages"></ul>
+  <!-- We append messages here -->
+  <ul id="messages"></ul>
 
-    <!-- The input field -->
-    <form action="">
-        <input id="m" autocomplete="off" />
-        <button>Send</button>
-    </form>
-    <script src="../js/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
+  <!-- The input field -->
+  <form action="">
+    <input id="m" autocomplete="off" />
+    <button>Send</button>
+  </form>
+  <script src="../js/jquery.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
 
-        var connected = false;
+    var connected = false;
 
-        $(function () {
-            if ($.cookie('room') == null && /^(\w{11})$/.test(window.location.href.split('/').pop())) {
-              $.cookie('room', window.location.href.split('/').pop());
-            }
+    $(function () {
+      if ($.cookie('room') == null && /^(\w{11})$/.test(window.location.href.split('/').pop())) {
+        $.cookie('room', window.location.href.split('/').pop());
+      }
 
-            // If the user isn't signed in, they get sent back to /register
-            if ($.cookie('username') == null) {
-                window.location.replace('/')
-            };
+      // If the user isn't signed in, they get sent back to /register
+      if ($.cookie('username') == null) {
+        window.location.replace('/')
+      };
 
-            // Change #roomid from "Loading..." to whatever room the user joined
-            $('#roomid').html('#' + $.cookie('room'));
+      // Change #roomid from "Loading..." to whatever room the user joined
+      $('#roomid').html('#' + $.cookie('room'));
 
-            var socket = io();
+      var socket = io();
 
-            // This function connects the user to the room
-            function connect() {
-                socket.emit('connect to room', $.cookie('room'));
-                connected == true;
-            }
-            connect();
+      // This function connects the user to the room
+      function connect() {
+        socket.emit('connect to room', $.cookie('room'));
+        connected == true;
+      }
+      connect();
 
-            // When the user sends a message, we need to tell the server
-            $('form').submit(function () {
+      // When the user sends a message, we need to tell the server
+      $('form').submit(function () {
 
-                // Reconnect the user if they've somehow disconnected
-                if (connected == false) {
-                    connect();
-                }
+        // Reconnect the user if they've somehow disconnected
+        if (connected == false) {
+          connect();
+        }
 
-                // Here's what the server needs to know to broadcast the message to the other clients
-                var data = {
-                    name: $.cookie('username'),
-                    message: $('#m').val(),
-                    room: $.cookie('room')
-                }
+        // Here's what the server needs to know to broadcast the message to the other clients
+        var data = {
+          name: $.cookie('username'),
+          message: $('#m').val(),
+          room: $.cookie('room')
+        }
 
-                // We don't wanna send empty messages
-                if (data.message == "") {
-                    return false;
-                }
+        // We don't wanna send empty messages
+        if (data.message == "") {
+          return false;
+        }
 
-                // Finally, send the message
-                socket.emit('chat message', data);
-                $('#m').val('');
-                return false;
-            });
+        // Finally, send the message
+        socket.emit('chat message', data);
+        $('#m').val('');
+        return false;
+      });
 
-            // When a message is recieved from the server, append it to the user's site
-            socket.on('chat message', function (data) {
-                $('#messages').append($('<li class="msg">').text(data.name + ': ' + data.message));
-                // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
-                // We want to make the scrolling smooth though
-                $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-                // new Audio('./sound/ping.mp3').play();
-            });
+      // When a message is recieved from the server, append it to the user's site
+      socket.on('chat message', function (data) {
+        $('#messages').append($('<li class="msg">').text(data.name + ': ' + data.message));
+        // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
+        // We want to make the scrolling smooth though
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+        // new Audio('./sound/ping.mp3').play();
+      });
 
-            // When the client wants to sign out
-            $('#signout').on('click', function () {
+      // When the client wants to sign out
+      $('#signout').on('click', function () {
 
-                // Clear the cookies
-                $.removeCookie('username');
-                $.removeCookie('room');
+        // Clear the cookies
+        $.removeCookie('username');
+        $.removeCookie('room');
 
-                // Send user back to registration
-                window.location.replace('/');
-            });
+        // Send user back to registration
+        window.location.replace('/');
+      });
 
-            document.title += ' ' + $.cookie('room');
+      document.title += ' ' + $.cookie('room');
 
-            $('#m').focus();
-        });
+      $('#m').focus();
+    });
 
-    </script>
+  </script>
 </body>
 
 </html>
