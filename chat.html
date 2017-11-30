@@ -1,100 +1,107 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title id="title">Wiphat - </title>
-        <link rel="stylesheet" href="./css/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-    <body id="index">
-        <!-- The header -->
-        <div class="inf">
-            <!-- This is where we display the room name, it defaults to "Loading..." -->
-            <p id="roomid">Loading...</p>
-            <!-- And this is how the user signs out -->
-            <button id="signout">Sign out</button>
-        </div>
 
-        <!-- We append messages here -->
-        <ul id="messages"></ul>
+<head>
+    <title id="title">Wiphat - </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 
-        <!-- The input field -->
-        <form action="">
-            <input id="m" autocomplete="off" /><button>Send</button>
-        </form>
-        <script src="./js/jquery.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
+<body id="index">
+    <!-- The header -->
+    <div class="inf">
+        <!-- This is where we display the room name, it defaults to "Loading..." -->
+        <p id="roomid">Loading...</p>
+        <!-- And this is how the user signs out -->
+        <button id="signout">Exit</button>
+    </div>
 
-            var connected = false;
+    <!-- We append messages here -->
+    <ul id="messages"></ul>
 
-            $(function () {
+    <!-- The input field -->
+    <form action="">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+    </form>
+    <script src="../js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
 
-                // If the user isn't signed in, they get sent back to /register
-                if($.cookie('username') == null || $.cookie('room') == null) {
-                    window.location.replace('/')
-                };
+        var connected = false;
 
-                // Change #roomid from "Loading..." to whatever room the user joined
-                $('#roomid').html('#' + $.cookie('room'));
+        $(function () {
+            if ($.cookie('room') == null && /^(\w{11})$/.test(window.location.href.split('/').pop())) {
+              $.cookie('room', window.location.href.split('/').pop());
+            }
 
-                var socket = io();
+            // If the user isn't signed in, they get sent back to /register
+            if ($.cookie('username') == null) {
+                window.location.replace('/')
+            };
 
-                // This function connects the user to the room
-                function connect() {
-                    socket.emit('connect to room', $.cookie('room'));
-                    connected == true;
+            // Change #roomid from "Loading..." to whatever room the user joined
+            $('#roomid').html('#' + $.cookie('room'));
+
+            var socket = io();
+
+            // This function connects the user to the room
+            function connect() {
+                socket.emit('connect to room', $.cookie('room'));
+                connected == true;
+            }
+            connect();
+
+            // When the user sends a message, we need to tell the server
+            $('form').submit(function () {
+
+                // Reconnect the user if they've somehow disconnected
+                if (connected == false) {
+                    connect();
                 }
-                connect();
 
-                // When the user sends a message, we need to tell the server
-                $('form').submit(function(){
+                // Here's what the server needs to know to broadcast the message to the other clients
+                var data = {
+                    name: $.cookie('username'),
+                    message: $('#m').val(),
+                    room: $.cookie('room')
+                }
 
-                    // Reconnect the user if they've somehow disconnected
-                    if (connected == false) {
-                        connect();
-                    }
-
-                    // Here's what the server needs to know to broadcast the message to the other clients
-                    var data = {
-                        name : $.cookie('username'),
-                        message : $('#m').val(),
-                        room : $.cookie('room')
-                    }
-
-                    // We don't wanna send empty messages
-                    if (data.message == "") {
-                        return false;
-                    }
-
-                    // Finally, send the message
-                    socket.emit('chat message', data);
-                    $('#m').val('');
+                // We don't wanna send empty messages
+                if (data.message == "") {
                     return false;
-                });
+                }
 
-                // When a message is recieved from the server, append it to the user's site
-                socket.on('chat message', function(data){
-                    $('#messages').append($('<li class="msg">').text(data.name + ': ' + data.message));
-                    // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
-                    // We want to make the scrolling smooth though
-                    $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-                    new Audio('./sound/ping.mp3').play();
-                });
-
-                // When the client wants to sign out
-                $('#signout').on('click', function(){
-                  
-                    // Clear the cookies
-                    $.removeCookie('username');
-                    $.removeCookie('room');
-
-                    // Send user back to registration
-                    window.location.replace('/');
-                });
+                // Finally, send the message
+                socket.emit('chat message', data);
+                $('#m').val('');
+                return false;
             });
 
-        </script>
-    </body>
+            // When a message is recieved from the server, append it to the user's site
+            socket.on('chat message', function (data) {
+                $('#messages').append($('<li class="msg">').text(data.name + ': ' + data.message));
+                // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
+                // We want to make the scrolling smooth though
+                $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+                // new Audio('./sound/ping.mp3').play();
+            });
+
+            // When the client wants to sign out
+            $('#signout').on('click', function () {
+
+                // Clear the cookies
+                $.removeCookie('username');
+                $.removeCookie('room');
+
+                // Send user back to registration
+                window.location.replace('/');
+            });
+        });
+
+    </script>
+</body>
+
 </html>

@@ -1,107 +1,174 @@
 /* --- INDEX --- */
 
 /*base*/
-* { margin: 0; padding: 0; box-sizing: border-box; }
-#index { font: 13px Helvetica, Arial; }
-#index form { padding: 5px; position: fixed; bottom: 0; width: 100%; }
-#index #m { margin-bottom: 10px; margin-left:10px; border-bottom: solid 4px #000; font-family: am3, sans-serif; }
-#index form input { border: 0; padding: 20px; width: 98.5%; }
-#index form button { width: 9.5%; background: #fff; border: none; padding: 0px; font-family: am3, sans-serif; position: relative; bottom: -10px; display:none; }
-#messages { font-family: am3, sans-serif; list-style-type: none; margin: 0; padding: 0; margin-bottom:100px; margin-top: 70px; }
-#messages li {padding:10px; word-break: break-all; padding-right:120px;font-size:1.5em;}
-#messages li:nth-child(odd) { background: #eee; }
-label { font-size:4em; color:#fff; font-family: am3, sans-serif; position: relative; top:10px; margin-right:10px; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: am3, sans-serif;
+}
+#index {
+  font: 13px Helvetica, Arial;
+}
+#index form {
+  padding: 5px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+#index #m {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-bottom: solid 4px #000;
+  font-family: am3, sans-serif;
+}
+#index form input {
+  border: 0;
+  padding: 20px;
+  width: 98.5%;
+}
+#index form button {
+  width: 9.5%;
+  background: #fff;
+  border: none;
+  padding: 0px;
+  font-family: am3, sans-serif;
+  position: relative;
+  bottom: -10px;
+  display: none;
+}
+#messages {
+  font-family: am3, sans-serif;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 100px;
+  margin-top: 70px;
+}
+#messages li {
+  padding: 10px;
+  word-break: break-all;
+  padding-right: 120px;
+  font-size: 1.5em;
+}
+#messages li:nth-child(odd) {
+  background: #eee;
+}
+label {
+  font-size: 4em;
+  color: #fff;
+  font-family: am3, sans-serif;
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+}
 
 /*extended*/
 #signout {
-    margin: 20px;
-    font-family: am3, sans-serif;
-    color: #eee;
-    border: none;
-    background-color:transparent;
-    font-size: 1.7em;
-    position: absolute;
-    top: 0px;
-    right: 0px;
+  margin: 20px;
+  font-family: am3, sans-serif;
+  color: #eee;
+  border: none;
+  background-color: transparent;
+  font-size: 1.7em;
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 #roomid {
-    margin: 15px;
-    font-family: am3, sans-serif;
-    font-size: 1.7em;
-    color:#eee;
+  margin: 15px;
+  font-family: am3, sans-serif;
+  font-size: 1.7em;
+  color: #eee;
 }
 .inf {
-    position: fixed;
-    background-color:#000;
-    top:0px;
-    width: 100%;
-    padding:5px;
+  position: fixed;
+  background-color: #000;
+  top: 0px;
+  width: 100%;
+  padding: 5px;
 }
 
 /* --- REGISTER --- */
-#register { overflow-x: hidden; }
+#register {
+  overflow-x: hidden;
+}
 @font-face {
-    font-family: am3;
-    src: url('../font/am.otf');
+  font-family: am3;
+  src: url("../font/am.otf");
 }
 .pane {
-    text-align:center;
-    min-height:100vh;
-    padding-top:15%;
+  text-align: center;
+  min-height: 100vh;
+  padding-top: 15%;
 }
 @media (max-width: 1092px) {
-    .pane {
-        min-height:50vh !important;
-    }
-    #footer p {
-        font-size: 2em;
-        margin-top:-175px;
-    }
-    #footer h2 {
-        margin-bottom: 100px;
-    }
+  .pane {
+    min-height: 50vh !important;
+  }
+  #footer p {
+    font-size: 2em;
+    margin-top: -175px;
+  }
+  #footer h2 {
+    margin-bottom: 100px;
+  }
 }
 #left {
-    background: url('../img/waterdark.jpg') no-repeat center center fixed;
-    background-size:cover;
-    transition: ease all 400ms;
+  background: url("../img/waterdark.jpg") no-repeat center center fixed;
+  background-size: cover;
+  transition: ease all 400ms;
+}
+#left > div {
+  background-color: #ffffff;
+  font-size: 2em;
+  cursor: pointer;
+  margin-top: 30px;
 }
 #right {
-    background: url('../img/nebuladark.jpg') no-repeat center center fixed;
-    background-size:cover;
-    transition: ease all 400ms;
+  background: url("../img/nebuladark.jpg") no-repeat center center fixed;
+  background-size: cover;
+  transition: ease all 400ms;
+}
+#right > span {
+  font-size: 4em;
+  color: #fff;
+  font-family: am3, sans-serif;
+  position: relative;
+  top: 10px;
+  cursor: pointer;
 }
 h2 {
-    font-family: am3, sans-serif;
-    color:#fff;
-    font-size: 5em;
-    margin-bottom:10vh
+  font-family: am3, sans-serif;
+  color: #fff;
+  font-size: 5em;
+  margin-bottom: 10vh;
 }
 #register button {
-    position:absolute;
-    left:-75px;
-    width:150px;
+  position: absolute;
+  left: -75px;
+  width: 150px;
 }
-input[type=text] {
-    border:none;
-    border-radius:0px;
-    padding:10px;
-    background:transparent;
-    border-bottom: solid 4px #fff;
-    font-family: am3;
-    font-size:2em;
-    color:#fff;
-    text-transform: lowercase;
+input[type="text"] {
+  border: none;
+  border-radius: 0px;
+  padding: 10px;
+  background: transparent;
+  border-bottom: solid 4px #fff;
+  font-family: am3;
+  font-size: 2em;
+  color: #fff;
+  text-transform: lowercase;
 }
 #cont {
-    visibility: hidden;
+  visibility: hidden;
 }
 #footer {
-    text-align:center;
-    margin:40px;
-    font-family: 'Lora', serif;
-    font-size:1em;
+  text-align: center;
+  margin: 40px;
+  font-family: "Lora", serif;
+  font-size: 1em;
 }
 #footer p {
-    margin-top:-75px;
+  margin-top: -75px;
 }
