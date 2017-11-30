@@ -9,32 +9,32 @@
 </head>
 
 <body id="register">
-  <form action="" class="row">
-
-    <!-- Left column, where the user selects a name -->
-    <div class="col-md-6 col-sm-12 pane" id="left">
-      <h2>Let's Start</h2>
-      <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-        Create a Private Room
-      </div>
-    </div>
-
-    <!-- Right column, where the user selects a room -->
-    <div class="col-md-6 col-sm-12 pane" id="right">
-      <h2>Join to</h2>
-      <label for="room">#</label>
-      <input type="text" id="room" class="focus" maxlength="20" />
-      <span>></span>
-    </div>
-
-  </form>
-
-  <!-- Footer, currently just shows the name of the project -->
-  <div class="row" id="footer">
+  <div class="row pane" id="welcome">
     <div class="col-xs-12">
-      <h2 style="color: #000;">wiphat</h2>
+      <h2>wiphat</h2>
+      <p>wiphat is an anonymous & non-tracking chat platform.</p>
     </div>
   </div>
+
+  <div class="row pane" id="start">
+    <h2>Let's Start</h2>
+    <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+      Create a Private Room
+    </div>
+  </div>
+
+  <div class="row pane" id="join">
+    <h2>Join to</h2>
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <form action="" class="row">
+        <label for="room" class="col-md-1 col-xs-1">#</label>
+        <input type="text" id="room" class="focus col-md-9 col-md-offset-0 col-xs-8 col-xs-offset-1" maxlength="10" id="joinInput" />
+        <span class="col-md-1 col-xs-1" id="joinButton">></span>
+      </form>
+    </div>
+  </div>
+
+  </form>
   <script src="./js/jquery.js"></script>
   <script src="./js/web.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -52,7 +52,7 @@
       var roomName = makeId(10, false);
 
       // When the user submits name and room
-      $('#left > div').on('click', function () {
+      $('#start > div').on('click', function () {
         // to avoid confusions, we only accept lowercase names and room names
         var name = userName;
         var room = roomName;
@@ -76,10 +76,10 @@
         return false;
       });
 
-      $('#right > span').on('click', function () {
+      $('#joinButton').on('click', function () {
         var regex = new RegExp("^[a-zA-Z0-9]+$");
 
-        if (regex.test($('#right > input').val())) {
+        if (regex.test($('#joinInput').val())) {
           var name = userName;
           var room = $('#room').val();
 
@@ -103,10 +103,10 @@
         }
       });
 
-      $('form').submit(function() {
+      $('form').submit(function () {
         var regex = new RegExp("^[a-zA-Z0-9]+$");
 
-        if (regex.test($('#right > input').val())) {
+        if (regex.test($('#joinInput').val())) {
           var name = userName;
           var room = $('#room').val();
 
