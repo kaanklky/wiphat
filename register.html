@@ -14,7 +14,7 @@
     <!-- Left column, where the user selects a name -->
     <div class="col-md-6 col-sm-12 pane" id="left">
       <h2>Let's Start</h2>
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
         Create a Private Room
       </div>
     </div>
@@ -32,7 +32,7 @@
   <!-- Footer, currently just shows the name of the project -->
   <div class="row" id="footer">
     <div class="col-xs-12">
-      <h2 style="color: #000;">whipat</h2>
+      <h2 style="color: #000;">wiphat</h2>
     </div>
   </div>
   <script src="./js/jquery.js"></script>
@@ -77,6 +77,33 @@
       });
 
       $('#right > span').on('click', function () {
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+
+        if (regex.test($('#right > input').val())) {
+          var name = userName;
+          var room = $('#room').val();
+
+          // Submitted name and room name organized neatly
+          var data = {
+            name: name,
+            room: room
+          }
+
+          // Tell the server that a new user has joined, and give it the users name and desired room
+          socket.emit('new user', data);
+
+          // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
+          $.cookie('room', room);
+          $.cookie('username', name);
+
+          // Redirect the user to the actual chat
+          window.location.href = "/chat/" + room;
+
+          return false;
+        }
+      });
+
+      $('form').submit(function() {
         var regex = new RegExp("^[a-zA-Z0-9]+$");
 
         if (regex.test($('#right > input').val())) {

@@ -120,10 +120,11 @@ label {
   transition: ease all 400ms;
 }
 #left > div {
-  background-color: #ffffff;
-  font-size: 2em;
+  color: #ffffff;
+  font-size: 1.8em;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 26px;
+  border: 4px solid #ffffff;
 }
 #right {
   background: url("../img/nebuladark.jpg") no-repeat center center fixed;
