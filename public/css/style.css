@@ -13,8 +13,8 @@
   color: #ffffff;
 }
 a {
-  color: #ffffff;
-  text-decoration: none;
+  color: #ffffff !important;
+  text-decoration: none !important;
 }
 #register {
   overflow-x: hidden;
