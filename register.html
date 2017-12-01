@@ -42,7 +42,7 @@
   <script src="https://cdn.rawgit.com/carhartl/jquery-cookie/master/src/jquery.cookie.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
-    $(function () {
+    $(document).ready(function () {
       // Clear cookies if do not properly exit from previous room
       $.removeCookie('username');
       $.removeCookie('room');
@@ -68,8 +68,8 @@
         socket.emit('new user', data);
 
         // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
-        $.cookie('room', room);
-        $.cookie('username', name);
+        $.cookie('wiphat_room', room);
+        $.cookie('wiphat_username', name);
 
         // Redirect the user to the actual chat
         window.location.href = "/chat/" + room;
@@ -92,8 +92,8 @@
           socket.emit('new user', data);
 
           // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
-          $.cookie('room', room);
-          $.cookie('username', name);
+          $.cookie('wiphat_room', room);
+          $.cookie('wiphat_username', name);
 
           // Redirect the user to the actual chat
           window.location.href = "/chat/" + room;
@@ -117,8 +117,8 @@
           socket.emit('new user', data);
 
           // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
-          $.cookie('room', room);
-          $.cookie('username', name);
+          $.cookie('wiphat_room', room);
+          $.cookie('wiphat_username', name);
 
           // Redirect the user to the actual chat
           window.location.href = "/chat/" + room;

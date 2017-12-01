@@ -33,24 +33,24 @@
 
     var connected = false;
 
-    $(function () {
-      if ($.cookie('room') == null && /^[a-z0-9]{10}/.test(window.location.href.split('/').pop())) {
-        $.cookie('room', window.location.href.split('/').pop());
+    $(document).ready(function () {
+      if ($.cookie('wiphat_room') == null && /^[a-z0-9]{10}/.test(window.location.href.split('/').pop())) {
+        $.cookie('wiphat_room', window.location.href.split('/').pop());
       }
 
       // If the user isn't signed in, they get sent back to /register
-      if ($.cookie('username') == null) {
+      if ($.cookie('wiphat_username') == null) {
         window.location.replace('/')
       };
 
       // Change #roomid from "Loading..." to whatever room the user joined
-      $('#roomid').html('#' + $.cookie('room'));
+      $('#roomid').html('#' + $.cookie('wiphat_room'));
 
       var socket = io();
 
       // This function connects the user to the room
       function connect() {
-        socket.emit('connect to room', $.cookie('room'));
+        socket.emit('connect to room', $.cookie('wiphat_room'));
         connected == true;
       }
       connect();
@@ -65,9 +65,9 @@
 
         // Here's what the server needs to know to broadcast the message to the other clients
         var data = {
-          name: $.cookie('username'),
+          name: $.cookie('wiphat_username'),
           message: $('#m').val(),
-          room: $.cookie('room')
+          room: $.cookie('wiphat_room')
         }
 
         // We don't wanna send empty messages
@@ -101,7 +101,7 @@
         window.location.replace('/');
       });
 
-      document.title += ' ' + $.cookie('room');
+      document.title += ' ' + $.cookie('wiphat_room');
 
       $('#m').focus();
     });
