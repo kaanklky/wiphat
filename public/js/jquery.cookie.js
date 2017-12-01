@@ -103,7 +103,7 @@
 		return result;
 	};
 
-	config.defaults = {};
+	config.defaults = {domain: 'private.kaankolkoy.net', path: '/'};
 
 	$.removeCookie = function (key, options) {
 		// Must not alter options, thus extending a fresh object...
