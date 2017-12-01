@@ -25,9 +25,14 @@ io.on('connection', function(socket){
 
     // When a client sends a message
     socket.on('chat message', function(data){
+        // To add timestamp to message
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+
         // Broadcast it to everyone in the same room as the client
         io.in(data.room).emit('chat message', data);
-        console.log('[' + data.room + '] ' + data.name + ': ' + data.message);
+        console.log('[' + data.room + '] ' + data.name + ' (' + h + '.' + m + '): ' + data.message);
     });
 
     // When a new user joins, we add them to their desired room
