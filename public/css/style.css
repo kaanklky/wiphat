@@ -164,8 +164,8 @@ label {
   body {
     font-size: 1em;
   }
-  #join > div > label {
-    padding-left: 9px;
+  #start div {
+    font-size: 0.8em;
   }
   .pane {
     padding-top: 40%;
