@@ -1,7 +1,19 @@
 # Wiphat
 Wiphat aims to be an anonymous private-room-based chatting application that requires no registration, doesn't save any logs and doesn't track users.
+___
+##  Contribution
+You can contribute vai pull requests or open an issue for your idea.
+> Any fool can write code that a computer can understand. Good programmers write code that humans can understand. -Martin Fowler
 
-Wiphat is a fork of [dellitsni/indstil](https://github.com/dellitsni/indstil) which developing on an another idea.
-
+So please;
+ - Do not write shortened code
+ - Always explaion your code with comments
+ - Spaces > Tabs. Use 2 space indentation
+ ___
 ## Host It Yourself
-You can run your own Wiphat server via NodeJS. Download project and just type `node app.js` in your terminal.
+You can run your own Wiphat server with NodeJS. Download project and just type `node app.js` in your terminal.
+___
+### Handicap
+Wiphat is running on your browser via just 2 cookies. It must store your username & room id on client side since I do not want record any information on server side. Because of this, you can __use just 1 room at once__. There is an [issue](https://github.com/kaanklky/wiphat/issues/8) for this.
+
+###### Wiphat is a fork of [dellitsni/indstil](https://github.com/dellitsni/indstil) which working through a different idea.
