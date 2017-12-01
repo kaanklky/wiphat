@@ -7,7 +7,7 @@ You can contribute vai pull requests or open an issue for your idea.
 
 So please;
  - Do not write shortened code
- - Always explaion your code with comments
+ - Always explain your code with comments
  - Spaces > Tabs. Use 2 space indentation
 <br><br>
 ## Host It Yourself
