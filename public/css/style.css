@@ -10,7 +10,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: am3, sans-serif;
-  color: #ffffff;
 }
 a {
   color: #eeeeee !important;
@@ -29,16 +28,7 @@ h2 {
   font-family: am3, sans-serif;
   font-size: 5em;
   margin-bottom: 10vh;
-}
-input[type="text"] {
-  border: none;
-  border-radius: 0px;
-  padding: 10px;
-  background: transparent;
-  border-bottom: solid 4px #fff;
-  font-family: am3;
-  font-size: 2em;
-  text-transform: lowercase;
+  color: #ffffff;
 }
 label {
   font-size: 4em;
@@ -55,6 +45,7 @@ label {
   text-align: center;
   font-family: "Lora", serif;
   font-size: 2em;
+  color: #ffffff;
 }
 #welcome p {
   font-size: 1.8em;
@@ -77,6 +68,7 @@ label {
 #start span {
   font-size: 3em;
   line-height: 3em;
+  color: #ffffff;
 }
 
 /* About */
