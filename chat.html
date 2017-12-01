@@ -94,6 +94,10 @@
           h = "0" + h;
         }
 
+        if (m < 10) {
+          m = "0" + m;
+        }
+
         $('#messages').append($('<li class="msg">').text(data.name + ' (' + h + '.' + m + '): ' + data.message));
         // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
         // We want to make the scrolling smooth though

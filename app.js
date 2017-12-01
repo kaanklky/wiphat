@@ -33,6 +33,10 @@ io.on("connection", function(socket) {
       h = "0" + h;
     }
 
+    if (m < 10) {
+      m = "0" + m;
+    }
+
     // Broadcast it to everyone in the same room as the client
     io.in(data.room).emit("chat message", data);
     console.log( "[" + data.room + "] " + data.name + " (" + h + "." + m + "): " + data.message);
