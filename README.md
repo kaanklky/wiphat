@@ -1,5 +1,5 @@
 # Wiphat
-Wiphat aims to be an anonymous private-room-based chatting application that requires no registration, doesn't save any logs and doesn't track users.
+Wiphat aims to be an anonymous private room based chat application that requires no registration, doesn't save any logs and doesn't track users.
 <br><br>
 ##  Contribution
 You can contribute vai pull requests or open an issue for your idea.
@@ -8,7 +8,6 @@ You can contribute vai pull requests or open an issue for your idea.
 So please;
  - Do not write shortened code
  - Always explain your code with comments
- - Spaces > Tabs. Use 2 space indentation
 <br><br>
 ## Host It Yourself
 You can run your own Wiphat server with NodeJS. Download project and just type `node app.js` in your terminal.

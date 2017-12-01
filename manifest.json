@@ -1,6 +1,6 @@
 {
   "name": "Wiphat",
-  "version": "0.0.1",
-  "description": "Completely anonymous & free chat application.",
+  "version": "0.1.0",
+  "description": "Completely anonymous & non-tracking chat application.",
   "dependencies": {}
 }
