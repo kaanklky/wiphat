@@ -10,6 +10,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: am3, sans-serif;
+  color: #ffffff;
+}
+a {
+  color: #ffffff;
+  text-decoration: none;
 }
 #register {
   overflow-x: hidden;
@@ -22,7 +27,6 @@
 }
 h2 {
   font-family: am3, sans-serif;
-  color: #fff;
   font-size: 5em;
   margin-bottom: 10vh;
 }
@@ -34,7 +38,6 @@ input[type="text"] {
   border-bottom: solid 4px #fff;
   font-family: am3;
   font-size: 2em;
-  color: #fff;
   text-transform: lowercase;
 }
 label {
@@ -49,11 +52,9 @@ label {
 #welcome {
   background: url("/img/welcome.jpg") no-repeat center center fixed;
   background-size: cover;
-  transition: ease all 400ms;
   text-align: center;
   font-family: "Lora", serif;
   font-size: 2em;
-  color: #ffffff;
 }
 #welcome p {
   font-size: 1.8em;
@@ -63,7 +64,6 @@ label {
 #start {
   background: url("/img/start.jpg") no-repeat center center fixed;
   background-size: cover;
-  transition: ease all 400ms;
 }
 #start div {
   cursor: pointer;
@@ -75,26 +75,14 @@ label {
   background-color: rgb(255, 255, 255, 0.3);
 }
 #start span {
-  color: #ffffff;
   font-size: 3em;
   line-height: 3em;
 }
 
-/* Join */
-#join {
+/* About */
+#about {
   background: url("/img/join.jpg") no-repeat center center fixed;
   background-size: cover;
-  transition: ease all 400ms;
-}
-#join span {
-  font-size: 4em;
-  color: #fff;
-  font-family: am3, sans-serif;
-  position: relative;
-  cursor: pointer;
-}
-#join > div > input {
-  margin-top: 12px;
 }
 
 /* Chat */

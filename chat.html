@@ -44,7 +44,7 @@
       };
 
       // Change #roomid from "Loading..." to whatever room the user joined
-      $('#roomid').html('#' + $.cookie('wiphat_room'));
+      $('#roomid').html('#' + $.cookie('wiphat_room') + '- <a href="#">test</a>');
 
       var socket = io();
 
