@@ -1,3 +1,3 @@
 function copyToClipboard(roomId) {
-  window.prompt("copy & send to your friend", "http://join.private.kaankolkoy.net/" + roomId);
+  window.prompt("copy & send to your friend", "http://private.kaankolkoy.net/join/" + roomId);
 }
