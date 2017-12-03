@@ -102,7 +102,12 @@
         // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
         // We want to make the scrolling smooth though
         $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-        // new Audio('./sound/ping.mp3').play();
+        
+        // To add '(*)' to title as visual notification
+        var title = $(document).prop('title');
+        if (title.indexOf('(*)') === -1 && !document.hasFocus()) {
+          $(document).prop('title', '(*) ' + title);
+        }
       });
 
       // When the client wants to sign out
@@ -119,8 +124,17 @@
       document.title += ' ' + $.cookie('wiphat_room');
 
       $('#m').focus();
+
       $('#roomShare').on('click', function () {
         copyToClipboard($.cookie('wiphat_room'));
+      });
+
+      // To remove visual notification on focus
+      $('*').on('click', function() {
+        var title = $(document).prop('title');
+        if (title.indexOf('(*)') !== -1) {
+          $(document).prop('title', title.substring(4));
+        }
       });
     });
 
