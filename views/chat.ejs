@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title id="title">wiphat - </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body id="index">
+  <!-- The header -->
+  <div class="inf">
+    <!-- This is where we display the room name, it defaults to "Loading..." -->
+    <p id="roomid">loading...</p>
+    <!-- And this is how the user signs out -->
+    <button id="signout">exit</button>
+  </div>
+
+  <!-- We append messages here -->
+  <ul id="messages"></ul>
+
+  <!-- The input field -->
+  <form action="">
+    <input id="m" autocomplete="off" />
+    <button>send</button>
+  </form>
+
+  <script src="/js/jquery.js"></script>
+  <script src="/js/web.js"></script>
+  <script src="/js/jquery.cookie.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+
+    var connected = false;
+
+    $(document).ready(function () {
+      if ($.cookie('wiphat_room') == null && /^[a-z0-9]{10}/.test(window.location.href.split('/').pop())) {
+        $.cookie('wiphat_room', window.location.href.split('/').pop());
+      }
+
+      // If the user isn't signed in, they get sent back to /register
+      if ($.cookie('wiphat_username') == null) {
+        window.location.replace('/')
+      };
+
+      // Change #roomid from "Loading..." to whatever room the user joined
+      $('#roomid').html('#' + $.cookie('wiphat_room') + ' - <a href="#" id="roomShare">share</a>');
+
+      var socket = io();
+
+      // This function connects the user to the room
+      function connect() {
+        socket.emit('connect to room', $.cookie('wiphat_room'));
+        connected == true;
+      }
+      connect();
+
+      // When the user sends a message, we need to tell the server
+      $('form').submit(function () {
+
+        // Reconnect the user if they've somehow disconnected
+        if (connected == false) {
+          connect();
+        }
+
+        // Here's what the server needs to know to broadcast the message to the other clients
+        var data = {
+          name: $.cookie('wiphat_username'),
+          message: $('#m').val(),
+          room: $.cookie('wiphat_room')
+        }
+
+        // We don't wanna send empty messages
+        if (data.message == "") {
+          return false;
+        }
+
+        // Finally, send the message
+        socket.emit('chat message', data);
+        $('#m').val('');
+        return false;
+      });
+
+      // When a message is recieved from the server, append it to the user's site
+      socket.on('chat message', function (data) {
+        // To add timestamp to message
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+
+        if (h < 10) {
+          h = "0" + h;
+        }
+
+        if (m < 10) {
+          m = "0" + m;
+        }
+
+        $('#messages').append($('<li class="msg">').text(data.name + ' (' + h + '.' + m + '): ' + data.message));
+        // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
+        // We want to make the scrolling smooth though
+        $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+        
+        // To add '(*)' to title as visual notification
+        var title = $(document).prop('title');
+        if (title.indexOf('(*)') === -1 && !document.hasFocus()) {
+          $(document).prop('title', '(*) ' + title);
+        }
+      });
+
+      // When the client wants to sign out
+      $('#signout').on('click', function () {
+
+        // Clear the cookies
+        $.removeCookie('wiphat_username');
+        $.removeCookie('wiphat_room');
+
+        // Send user back to registration
+        window.location.replace('/');
+      });
+
+      document.title += ' ' + $.cookie('wiphat_room');
+
+      $('#m').focus();
+
+      $('#roomShare').on('click', function () {
+        copyToClipboard($.cookie('wiphat_room'));
+      });
+
+      // To remove visual notification on focus
+      $('*').on('click', function() {
+        var title = $(document).prop('title');
+        if (title.indexOf('(*)') !== -1) {
+          $(document).prop('title', title.substring(4));
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

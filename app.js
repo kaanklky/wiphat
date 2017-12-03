@@ -5,20 +5,22 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
 app.use(express.static(path.join(__dirname, "public")));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Index
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/register.html");
+  res.render('register');
 });
 
 // Chat page block
 app.get("/chat", function(req, res) {
-  res.sendFile(__dirname + "/register.html");
+  res.render('register');
 });
 
 // Chat to room
 app.get("/chat/((?:[a-z0-9]*))", function(req, res) {
-  res.sendFile(__dirname + "/chat.html");
+  res.render('chat');
 });
 
 io.on("connection", function(socket) {
