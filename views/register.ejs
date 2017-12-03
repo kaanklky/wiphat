@@ -34,25 +34,17 @@
   </form>
   <script src="/js/jquery.js"></script>
   <script src="/js/web.js"></script>
-  <script src="/js/jquery.cookie.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Clear cookies if do not properly exit from previous room
-      $.removeCookie('wiphat_username');
-      $.removeCookie('wiphat_room');
-
       var socket = io();
-
-      var userName = makeId(4, true);
-      var roomName = makeId(10, false);
 
       // When the user submits name and room
       $('#start > div').on('click', function () {
-        // to avoid confusions, we only accept lowercase names and room names
-        var name = userName;
-        var room = roomName;
+        // get userName & room id from nodejs
+        var name = '<%= userName %>';
+        var room = '<%= room %>';
 
         // Submitted name and room name organized neatly
         var data = {
@@ -62,10 +54,6 @@
 
         // Tell the server that a new user has joined, and give it the users name and desired room
         socket.emit('new user', data);
-
-        // Set cookies on the users browser to keep them logged into the room until they sign out or the cookie expires
-        $.cookie('wiphat_room', room);
-        $.cookie('wiphat_username', name);
 
         // Redirect the user to the actual chat
         window.location.href = "/chat/" + room;

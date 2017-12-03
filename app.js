@@ -3,24 +3,43 @@ var app = express();
 var path = require("path");
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+var tools = require('./tools');
 
 app.use(express.static(path.join(__dirname, "public")));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// globals
+var userName, room;
+
 // Index
 app.get("/", function(req, res) {
-  res.render('register');
+  userName = tools.makeId(4, true);
+  room = tools.makeId(10, false );
+
+  res.render('register', { userName: userName, room: room });
 });
 
-// Chat page block
-app.get("/chat", function(req, res) {
-  res.render('register');
+// Chat room
+app.get("^/chat/([a-z0-9]{10})", function(req, res) {
+  if (typeof userName === 'undefined' || typeof room === 'undefined') {
+    res.redirect('/');
+  } else {
+    res.render('chat', { userName: userName, room: room });
+  }
 });
 
-// Chat to room
-app.get("/chat/((?:[a-z0-9]*))", function(req, res) {
-  res.render('chat');
+// Join with url
+app.get("^/join/:id([a-z0-9]{10})", function(req, res) {
+  userName = tools.makeId(4, true);
+  room = req.params.id;
+
+  res.redirect('/chat/' + room);
+})
+
+// 404 to all another urls
+app.use(function(req, res){
+  res.sendStatus(404);
 });
 
 io.on("connection", function(socket) {
