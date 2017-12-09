@@ -17,6 +17,7 @@ a {
 }
 #register {
   overflow-x: hidden;
+  text-shadow: 1px 0px 10px rgba(0, 0, 0, 1);
 }
 .pane {
   text-align: center;
@@ -75,6 +76,10 @@ label {
 #about {
   background: url("/img/join.jpg") no-repeat center center fixed;
   background-size: cover;
+}
+#about p {
+  color: #ffffff;
+  font-size: 2em;
 }
 
 /* Chat */
