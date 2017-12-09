@@ -12,7 +12,4 @@ So please;
 ## Host It Yourself
 You can run your own Wiphat server with NodeJS. Download project and just type `node app.js` in your terminal.
 <br><br>
-### Handicap
-Wiphat is running on your browser via just 2 cookies. It must store your username & room id on client side since I do not want record any information on server side. Because of this, you can __use just 1 room at once__. There is an [issue](https://github.com/kaanklky/wiphat/issues/8) for this.
-<br><br>
-###### Wiphat is a fork of [dellitsni/indstil](https://github.com/dellitsni/indstil) which working through a different idea.
+###### Wiphat is a fork of [dellitsni/indstil](https://github.com/dellitsni/indstil) which is working through a different idea.
