@@ -2,7 +2,7 @@
 Wiphat aims to be an anonymous private room based chat application that requires no registration, doesn't save any logs and doesn't track users.
 <br><br>
 ##  Contribution
-You can contribute vai pull requests or open an issue for your idea.
+You can contribute via pull requests or open an issue.
 > Any fool can write code that a computer can understand. Good programmers write code that humans can understand. -Martin Fowler
 
 So please;
