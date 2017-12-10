@@ -60,7 +60,7 @@ io.on("connection", function(socket) {
 
     // Broadcast it to everyone in the same room as the client
     io.in(data.room).emit("chat message", data);
-    console.log( "[" + data.room + "] " + data.name + " (" + h + "." + m + "): " + data.message);
+    // console.log( "[" + data.room + "] " + data.name + " (" + h + "." + m + "): " + data.message);
   });
 
   // When a new user joins, we add them to their desired room
@@ -76,7 +76,7 @@ io.on("connection", function(socket) {
 
     // Tell everyone in the room that the new client joined
     io.in(room).emit("chat message", data2);
-    console.log("[" + room + "] " + data.name + " joined");
+    // console.log("[" + room + "] " + data.name + " joined");
   });
 
   // When a client wants to connect to a room
