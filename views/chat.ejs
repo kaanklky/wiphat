@@ -132,7 +132,13 @@
         $(document).prop('title', title.substring(4));
       }
     });
+    $("#m").on("change keydown paste input", function() {
+      var title = $(document).prop('title');
+      if (title.indexOf('(*)') !== -1) {
+        $(document).prop('title', title.substring(4));
+      }
     });
+  });
 
   </script>
 </body>
