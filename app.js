@@ -21,11 +21,12 @@ app.get("/", function(req, res) {
 });
 
 // Chat room
-app.get("^/chat/([a-z0-9]{10})", function(req, res) {
+app.get("^/chat/:id([a-z0-9]{10})", function(req, res) {
   if (typeof userName === 'undefined' || typeof room === 'undefined') {
     res.redirect('/');
   } else {
     res.render('chat', { userName: userName, room: room });
+		userName = room = undefined;
   }
 });
 
