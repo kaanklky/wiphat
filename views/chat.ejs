@@ -38,13 +38,9 @@
     // globals
     var userName, room;
 
-    if (typeof '<%= userName %>' !== 'string' || typeof '<%= room %>' !== 'string') {
-      window.location.replace('/');
-    } else {
-      // get variables from nodejs
-      userName = '<%= userName %>';
-      room = '<%= room %>';
-    }
+    // get variables from nodejs
+    userName = '<%= userName %>';
+    room = '<%= room %>';
 
     // Change #roomid from "Loading..." to whatever room the user joined
     $('#roomid').html('#' + room + ' - <a href="#" id="roomShare">share</a>');
