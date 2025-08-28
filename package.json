@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "clean-start": "rm -rf node_modules && npm i && npm run start"
   },
   "keywords": [],
   "author": "",

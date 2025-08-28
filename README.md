@@ -15,6 +15,6 @@ So please;
  - Always explain your code with comments
 <br><br>
 ## Host It Yourself
-You can run your own Wiphat server with NodeJS. Download project, download dependencies by `npm i` and just type `node app.js` in your terminal.
+You can run your own Wiphat server with NodeJS. Download project and run `npm run clean-start` in your terminal.
 <br><br>
 ###### Wiphat is a fork of [dellitsni/indstil](https://github.com/dellitsni/indstil) which is working through a different idea.
