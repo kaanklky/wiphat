@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "clean-start": "rm -rf node_modules && npm i && npm run start"
+    "dev": "node app.js --dev",
+    "clean-start": "rm -rf node_modules && npm i && npm run start",
+    "clean-dev": "rm -rf node_modules && npm i && npm run dev"
   },
   "keywords": [],
   "author": "",
