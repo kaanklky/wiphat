@@ -1,0 +1,19 @@
+{
+  "name": "wiphat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "check-node-version": "^3.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  }
+}
