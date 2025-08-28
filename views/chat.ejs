@@ -84,16 +84,8 @@
     socket.on('chat message', function (data) {
       // To add timestamp to message
       var d = new Date();
-      var h = d.getHours();
-      var m = d.getMinutes();
-
-      if (h < 10) {
-        h = "0" + h;
-      }
-
-      if (m < 10) {
-        m = "0" + m;
-      }
+      var h = d.getHours().toString().padStart(2, '0');
+      var m = d.getMinutes().toString().padStart(2, '0');
 
       $('#messages').append($('<li class="msg">').text(data.name + ' (' + h + '.' + m + '): ' + data.message));
       // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved

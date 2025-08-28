@@ -49,16 +49,8 @@ io.on("connection", function(socket) {
   socket.on("chat message", function(data) {
     // To add timestamp to message
     var d = new Date();
-    var h = d.getHours();
-    var m = d.getMinutes();
-
-    if (h < 10) {
-      h = "0" + h;
-    }
-
-    if (m < 10) {
-      m = "0" + m;
-    }
+    var h = d.getHours().toString().padStart(2, '0');
+    var m = d.getMinutes().toString().padStart(2, '0');
 
     // Broadcast it to everyone in the same room as the client
     io.in(data.room).emit("chat message", data);
@@ -70,15 +62,14 @@ io.on("connection", function(socket) {
     var name = data.name;
     var room = data.room;
     socket.join(room);
-    data2 = {
+    if (isDev) console.log("[" + room + "] " + data.name + " joined");
+
+    // Tell everyone else in the room that the new client joined (excluding the new user)
+    io.in(room).emit("chat message", {
       name: "server",
       room: room,
       message: '"' + name + '"' + " joined the room."
-    };
-
-    // Tell everyone in the room that the new client joined
-    io.in(room).emit("chat message", data2);
-    if (isDev) console.log( "[" + data.room + "] " + data.name + " (" + h + "." + m + "): " + data.message);
+    });
   });
 
   // When a client wants to connect to a room
