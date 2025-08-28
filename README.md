@@ -1,7 +1,7 @@
 # Wiphat
 Wiphat aims to be an anonymous private room based chat application that requires no registration, doesn't save any logs and doesn't track users.
 <br><br>
-https://wiphat.net
+https://wiphat.kaankolkoy.net
 <br><br>
 ## TODO
  - Need to check if room has any listeners on client join.
