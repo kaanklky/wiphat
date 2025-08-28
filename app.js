@@ -54,7 +54,7 @@ io.on("connection", function(socket) {
 
     // Broadcast it to everyone in the same room as the client
     io.in(data.room).emit("chat message", data);
-    if (isDev) console.log( "[" + data.room + "] " + data.name + " (" + h + "." + m + "): " + data.message);
+    if (isDev) console.log( "[" + data.room + "] [" + h + "." + m + "] " + data.name + ": " + data.message);
   });
 
   // When a new user joins, we add them to their desired room
@@ -65,7 +65,7 @@ io.on("connection", function(socket) {
     if (isDev) console.log("[" + room + "] " + data.name + " joined");
 
     // Tell everyone else in the room that the new client joined (excluding the new user)
-    io.in(room).emit("chat message", {
+    socket.to(room).emit("chat message", {
       name: "server",
       room: room,
       message: '"' + name + '"' + " joined the room."

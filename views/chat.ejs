@@ -49,19 +49,13 @@
 
     // This function connects the user to the room
     function connect() {
-      socket.emit('connect to room', room);
-      connected == true;
+      socket.emit('new user', { name: userName, room: room });
+      connected = true;
     }
     connect();
 
     // When the user sends a message, we need to tell the server
     $('form').submit(function () {
-
-      // Reconnect the user if they've somehow disconnected
-      if (connected == false) {
-        connect();
-      }
-
       // Here's what the server needs to know to broadcast the message to the other clients
       var data = {
         name: userName,
@@ -87,7 +81,7 @@
       var h = d.getHours().toString().padStart(2, '0');
       var m = d.getMinutes().toString().padStart(2, '0');
 
-      $('#messages').append($('<li class="msg">').text(data.name + ' (' + h + '.' + m + '): ' + data.message));
+      $('#messages').append($('<li class="msg">').text('[' + h + '.' + m + '] ' + data.name + ': ' + data.message));
       // Scroll down to make sure that the user doesn't have to scroll every time a new message is recieved
       // We want to make the scrolling smooth though
       $('html, body').animate({ scrollTop: $(document).height() }, 1000);
